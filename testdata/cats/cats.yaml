@@ -1,0 +1,49 @@
+-
+  case_info:
+    story: '查询所有猫的信息"'
+    step: '1、登录系统 2、在猫的类型搜索框中输入布偶，点击右边的查询按键'
+  requests:
+    req_method: request  #可能时数据库相关封装的请求
+    method: get
+    api: /api/cats/all_cats
+    assert_type: expected_in_actual  #断言类型
+    validate:
+      status_code: 200
+      expected:
+        status: success
+        msg: 操作成功
+-
+  case_info:
+    story: '登录猫网'
+  requests:
+    req_method: request  #可能时数据库相关封装的请求
+    method: post
+    api: /api/cats/login
+    data:
+      username: admin
+      password: 123456
+    assert_type: expected_in_actual  #断言类型
+    validate:
+      status_code: 201
+      expected:
+        status: success
+        msg: 操作成功
+-
+  case_info:
+    story: '查看布偶猫信息'
+  requests:
+    req_method: request  #可能时数据库相关封装的请求
+    method: get
+    api: /api/cats
+    params:
+      cats_name: "bulusi"
+    assert_type: expected_in_actual  #断言类型
+    validate:
+      status_code: 200
+      expected:
+        status: success
+        msg: 操作成功
+
+
+
+

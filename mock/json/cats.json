@@ -1,0 +1,66 @@
+[
+  {
+  "description": "查询所有猫的种类",
+  "request": {
+    "uri": "/api/cats/all_cats",
+    "method": "get"
+    },
+  "response": {
+    "status": "200",
+    "headers": {
+    "Content-Type": "application/json;charset=UTF-8"
+    },
+    "json": {
+      "status": "success",
+      "message": "操作成功",
+      "data": {
+        "加菲猫": "美国",
+        "布偶": "中国"
+      }
+    }
+  }
+  },
+  {
+    "description": "获取指定猫种类的信息",
+    "request": {
+      "uri": "/api/cats",
+      "method": "get",
+      "queries": {
+        "cats_name": "bulusi"
+      }
+    },
+    "response": {
+      "status": "200",
+      "headers": {
+        "Content-Type": "application/json;charset=UTF-8"
+      },
+      "json": {
+        "status": "success",
+        "message": "操作成功",
+        "data": {
+          "名称": "布鲁斯",
+          "产地": "美国",
+          "科类": "猫科"
+        }
+      }
+    }
+  },
+  {
+    "description": "猫网登录",
+    "request": {
+      "uri": "/api/cats/login",
+      "method": "post",
+      "forms": {
+        "username": "admin",
+        "password": "123456"
+        }
+      },
+    "response": {
+      "status": "201",
+      "json": {
+        "status": "success",
+        "message": "操作成功"
+        }
+    }
+  }
+]
