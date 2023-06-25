@@ -28,6 +28,7 @@ class Mylog():
 
         #日志文件名称
         self.log_name = path.dirname(path.dirname(path.abspath(__file__))).replace('\\','/') + '/log/' + log_file_name
+        self.errlog_name = path.dirname(path.dirname(path.abspath(__file__))).replace('\\','/') + '/log/' + log_errfile_name
         #生成日志器
         self.logger = logging.getLogger(__name__)
         #设置日志器的默认等级
@@ -50,10 +51,16 @@ class Mylog():
         #添加修改后的配置
         self.logger.addHandler(fh)
 
-        #控制台设置
+
+        #错误日志处理器
+        eh = logging.FileHandler(self.errlog_name,mode='a',encoding='utf-8')
+        eh.setLevel(logging.ERROR)
+        eh.setFormatter(fmt=log_file_format)
+        self.logger.addHandler(eh)
+
+        #控制台处理器
         ch = logging.StreamHandler()
         ch.setLevel(self.log_console_level)
-        #设置日志文字颜色
         console_color_format = colorlog.ColoredFormatter(fmt=self.log_console_format,log_colors=self.log_color,datefmt='%Y-%m-%d  %H:%M:%S')
         ch.setFormatter(console_color_format)
         self.logger.addHandler(ch)
@@ -74,10 +81,11 @@ class Mylog():
         #重复日志处理
         self.logger.removeHandler(fh)
         self.logger.removeHandler(ch)
-
+        self.logger.removeHandler(eh)
         #关闭文件
         fh.close()
-
+        eh.close()
+        
     def debug(self,message):
         self.__handler('debug',message)
 
